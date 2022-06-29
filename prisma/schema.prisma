@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id       Int     @id @default(autoincrement())
+  email    String  @unique
+  password String
+  role     Role    @default(USER)
+  basket   Basket?
+}
+
+enum Role {
+  USER
+  ADMIN
+}
+
+model Basket {
+  id      Int      @id @default(autoincrement())
+  user    User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId  Int      @unique
+  devices Device[]
+}
+
+model Type {
+  id      Int      @id @default(autoincrement())
+  name    String   @unique
+  devices Device[]
+  brands  Brand[]
+}
+
+model Brand {
+  id      Int      @id @default(autoincrement())
+  name    String   @unique
+  devices Device[]
+  types   Type[]
+}
+
+model Device {
+  id           Int          @id @default(autoincrement())
+  name         String       @unique
+  price        Int
+  rating       Int          @default(0)
+  img          String
+  type         Type         @relation(fields: [typeId], references: [id], onDelete: Cascade)
+  typeId       Int
+  brand        Brand        @relation(fields: [brandId], references: [id], onDelete: Cascade)
+  brandId      Int
+  device_infos DeviceInfo[]
+  baskets      Basket[]
+}
+
+model DeviceInfo {
+  id          Int    @id @default(autoincrement())
+  title       String
+  description String
+  device      Device @relation(fields: [deviceId], references: [id], onDelete: Cascade)
+  deviceId    Int
+}
