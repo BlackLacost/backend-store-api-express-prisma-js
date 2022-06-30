@@ -1,1 +1,1 @@
-GET http://localhost:5000/api/users/auth
+GET http://localhost:5000/api/users/auth?id=5&message=qwe
