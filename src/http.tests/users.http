@@ -1,17 +1,27 @@
+@baseUrl = http://localhost:5000
+@email = user1@mail.ru
+@password = password
+
 ### Создание новго пользователся
-POST http://localhost:5000/api/users/registration
+POST {{baseUrl}}/api/users/registration
 Content-Type: application/json
 
 {
-	"email": "user@mail.ru",
-	"password": "test"
+	"email": "{{email}}",
+	"password": "{{password}}"
 }
 
 ### Логин пользователся
-POST http://localhost:5000/api/users/login
-Content-Type: application/json
+# @name auth
+POST {{baseUrl}}/api/users/login HTTP/1.1
+Content-Type: application/json;charset=UTF-8
 
 {
-	"email": "user@mail.ru",
-	"password": "test"
+	"email": "{{email}}",
+	"password": "{{password}}"
 }
+
+###
+
+GET {{baseUrl}}/api/users/auth
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NSwiZW1haWwiOiJ1c2VyMUBtYWlsLnJ1Iiwicm9sZSI6IlVTRVIiLCJpYXQiOjE2NTY2MDc3MDQsImV4cCI6MTY1NjY5NDEwNH0.3g6flGyD783sZ6zRKrRuPIHk0uo9JlBzpXIOQBWbgxs
