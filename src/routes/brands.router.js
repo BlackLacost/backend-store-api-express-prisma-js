@@ -1,8 +1,9 @@
 const Router = require('express')
 const brandsController = require('../controllers/brands.controller')
+const errorHandler = require('../middleware/error-handler.wrapper')
 const router = new Router()
 
-router.post('/', brandsController.create)
-router.get('/', brandsController.getAll)
+router.post('/', errorHandler(brandsController.create))
+router.get('/', errorHandler(brandsController.getAll))
 
 module.exports = { brandsRouter: router }
