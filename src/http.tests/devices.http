@@ -1,5 +1,6 @@
 ### Добавление новго устройства
 POST http://localhost:5000/api/devices
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjU2NjA5NzMxLCJleHAiOjE2NTY2OTYxMzF9.TSE474YHELIOMV99VkIrPWmlroquFSfU9H5vYMWjCi8
 Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
 
 ------WebKitFormBoundary7MA4YWxkTrZu0gW

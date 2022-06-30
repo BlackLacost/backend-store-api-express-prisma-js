@@ -1,5 +1,8 @@
 ### Create new type
-POST http://localhost:5000/api/types
+@baseUrl = http://localhost:5000
+
+POST {{baseUrl}}/api/types
+Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6NiwiZW1haWwiOiJhZG1pbkBtYWlsLnJ1Iiwicm9sZSI6IkFETUlOIiwiaWF0IjoxNjU2NjA5NzMxLCJleHAiOjE2NTY2OTYxMzF9.TSE474YHELIOMV99VkIrPWmlroquFSfU9H5vYMWjCi8
 Content-Type: application/json
 
 {
@@ -7,4 +10,4 @@ Content-Type: application/json
 }
 
 ### Get all types
-GET http://localhost:5000/api/types
+GET {{baseUrl}}/api/types

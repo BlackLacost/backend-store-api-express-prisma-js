@@ -5,6 +5,7 @@ const path = require('path')
 
 const devicesController = require('../controllers/devices.controller')
 const errorHandler = require('../middleware/error-handler.wrapper')
+const checkRoleMiddleware = require('../middleware/check-role.middleware')
 
 const router = new Router()
 
@@ -18,7 +19,12 @@ const storage = multer.diskStorage({
 })
 const upload = multer({ storage })
 
-router.post('/', upload.single('img'), errorHandler(devicesController.create))
+router.post(
+  '/',
+  checkRoleMiddleware('ADMIN'),
+  upload.single('img'),
+  errorHandler(devicesController.create)
+)
 router.get('/', errorHandler(devicesController.getAll))
 router.get('/:id', errorHandler(devicesController.getOne))
 
