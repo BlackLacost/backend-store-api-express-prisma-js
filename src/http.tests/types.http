@@ -1,0 +1,10 @@
+### Create new type
+POST http://localhost:5000/api/types
+Content-Type: application/json
+
+{
+	"name": "Холодильники"
+}
+
+### Get all types
+GET http://localhost:5000/api/types

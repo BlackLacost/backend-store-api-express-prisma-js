@@ -1,0 +1,10 @@
+### Create new type
+POST http://localhost:5000/api/brands
+Content-Type: application/json
+
+{
+	"name": "Apple"
+}
+
+### Get all types
+GET http://localhost:5000/api/brands
