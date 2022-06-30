@@ -5,7 +5,7 @@ Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0g
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="name"
 
-12 pro
+Зенит
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="price"
 
@@ -17,7 +17,7 @@ Content-Disposition: form-data; name="brandId"
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="typeId"
 
-2
+1
 ------WebKitFormBoundary7MA4YWxkTrZu0gW
 Content-Disposition: form-data; name="img"; filename="1.jpg"
 Content-Type: image/jpeg
@@ -25,5 +25,16 @@ Content-Type: image/jpeg
 < prisma/images/1.jpg
 ------WebKitFormBoundary7MA4YWxkTrZu0gW--
 
-###
+### Получить все устройства
 GET http://localhost:5000/api/devices
+
+
+### Фильтрация устройств по бренду и типу
+GET http://localhost:5000/api/devices?brandId=2&typeId=1
+
+### Пагинация
+GET http://localhost:5000/api/devices?page=1&take=2
+
+
+### Получить устройство по ID
+GET http://localhost:5000/api/devices/6

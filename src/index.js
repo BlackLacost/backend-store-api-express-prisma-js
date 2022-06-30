@@ -1,5 +1,6 @@
 require('dotenv').config()
 const express = require('express')
+const { queryParser } = require('express-query-parser')
 const path = require('path')
 
 const prisma = require('./db')
@@ -11,6 +12,14 @@ const app = express()
 
 app.use(express.json())
 app.use(express.static('static'))
+app.use(
+  queryParser({
+    parseNull: true,
+    parseUndefined: true,
+    parseBoolean: true,
+    parseNumber: true,
+  })
+)
 app.use('/api', router)
 
 // Обработка ошибок должна регистрироваться в конце без вызова next()

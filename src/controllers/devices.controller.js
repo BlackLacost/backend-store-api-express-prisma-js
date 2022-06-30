@@ -28,13 +28,40 @@ class DevicesController {
   }
 
   async getAll(req, res) {
-    const devices = await prisma.device.findMany({
-      include: { brand: true, type: true },
+    const { typeId, brandId, take: take = 9, page: page = 1 } = req.query
+
+    const skip = page * take - take
+
+    const [count, devices] = await prisma.$transaction([
+      prisma.device.count({
+        where: {
+          ...(typeId && { typeId }),
+          ...(brandId && { brandId }),
+        },
+      }),
+      prisma.device.findMany({
+        where: {
+          ...(typeId && { typeId }),
+          ...(brandId && { brandId }),
+        },
+        skip,
+        take,
+      }),
+    ])
+    return res.json({
+      pages: Math.ceil(count / take),
+      devices,
     })
-    return res.json(devices)
   }
 
-  async getOne(req, res, next) {}
+  async getOne(req, res) {
+    const { id } = req.params
+    const device = await prisma.device.findUnique({
+      where: { id: +id },
+      include: { brand: true, type: true },
+    })
+    return res.json(device)
+  }
 }
 
 module.exports = new DevicesController()
