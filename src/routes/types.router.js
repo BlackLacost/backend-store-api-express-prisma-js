@@ -10,5 +10,6 @@ router.post(
   errorHandler(typesController.create)
 )
 router.get('/', errorHandler(typesController.getAll))
+router.get('/:typeId', errorHandler(typesController.getOne))
 
 module.exports = { typesRouter: router }

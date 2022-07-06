@@ -11,3 +11,16 @@ Content-Type: application/json
 
 ### Get all types
 GET {{baseUrl}}/api/types
+
+
+### Get type with brands
+GET {{baseUrl}}/api/types/32
+
+### Get type with brands
+GET {{baseUrl}}/api/types/32?brands=true
+
+### Get type with devices
+GET {{baseUrl}}/api/types/32?devices=true
+
+### Get type with devices & brands
+GET {{baseUrl}}/api/types/32?devices=true&brands=true
