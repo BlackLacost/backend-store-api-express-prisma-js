@@ -44,6 +44,7 @@ class DevicesController {
           ...(typeId && { typeId }),
           ...(brandId && { brandId }),
         },
+        include: { brand: true },
         skip,
         take,
       }),

@@ -1,7 +1,14 @@
+const fs = require('fs')
 const prisma = require('../src/db')
-const { devices, typesName } = require('./data')
+const { scraperData } = require('./data/scraperData')
+
+const devices = JSON.parse(fs.readFileSync('devices.json'))
+const typeNames = [...new Set(devices.map((device) => device.type))]
 
 async function start() {
+  await scraperData()
+  console.log('Scrapped data to devices.json')
+
   await prisma.type.deleteMany({})
   console.log('Deleted records in type table')
 
@@ -20,22 +27,22 @@ async function start() {
   await prisma.$queryRaw`ALTER SEQUENCE "Device_id_seq" RESTART 1`
   console.log('Reset device auto increment to 1')
 
-  for (let { name, img, price, type, brand } of devices) {
+  for (let { name, images, price, type, brand } of devices) {
     await prisma.device.create({
       data: {
         name,
-        img,
+        img: images[0],
         price,
         brand: {
           connectOrCreate: {
-            where: { name: brand.name },
-            create: { name: brand.name },
+            where: { name: brand },
+            create: { name: brand },
           },
         },
         type: {
           connectOrCreate: {
-            where: { name: type.name },
-            create: { name: type.name },
+            where: { name: type },
+            create: { name: type },
           },
         },
       },
@@ -43,7 +50,7 @@ async function start() {
   }
   console.log('Added device data with brand & type')
 
-  for (let typeName of Object.values(typesName)) {
+  for (let typeName of typeNames) {
     const brandsId = (
       await prisma.device.findMany({
         where: { type: { name: typeName } },

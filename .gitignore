@@ -1,3 +1,4 @@
 node_modules/
 pgdata/
 static/
+devices.json
